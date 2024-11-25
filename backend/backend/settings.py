@@ -37,7 +37,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(",")
 
 
 
@@ -135,7 +135,7 @@ DATABASES = {
     }
 }
 
-DATABASES["default"] = dj_database_url.parse("postgresql://lincojoin_user:dzmiDOGwuWCjhP4OW5d5FQRuLw58vFW8@dpg-ct2784hopnds73fp7eb0-a.oregon-postgres.render.com/lincojoin")
+DATABASES["default"] = dj_database_url.parse(env('DATABASE_URL'))
 
 
 # Password validation

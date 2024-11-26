@@ -10,6 +10,12 @@ from rest_framework.generics import GenericAPIView
 from django.utils.encoding import smart_str, DjangoUnicodeDecodeError
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.http import urlsafe_base64_decode
+# from allauth.socialaccount.models import SocialToken, SocialAccount
+# from django.contrib.auth.decorators import login_required
+# from rest_framework_simplejwt.tokens import RefreshToken
+# from django.contrib.auth import get_user_model
+# from django.views.decorators.csrf import csrf_exempt
+
 
 
 
@@ -109,3 +115,16 @@ class SetNewPassword(GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         return Response({'message': 'Password reset successfully'}, status=status.HTTP_200_OK)
+
+
+
+class LogOutUser(GenericAPIView):
+    serializer_class=LogOutUserSerializer
+    permission_classes=[IsAuthenticated]
+    
+    
+    def post(self, request):
+        serializer =self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response (status=status.HTTP_204_NO_CONTENT)

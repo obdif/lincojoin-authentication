@@ -10,11 +10,11 @@ from rest_framework.generics import GenericAPIView
 from django.utils.encoding import smart_str, DjangoUnicodeDecodeError
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.http import urlsafe_base64_decode
-# from allauth.socialaccount.models import SocialToken, SocialAccount
-# from django.contrib.auth.decorators import login_required
-# from rest_framework_simplejwt.tokens import RefreshToken
-# from django.contrib.auth import get_user_model
-# from django.views.decorators.csrf import csrf_exempt
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.exceptions import AuthenticationFailed
+
 
 
 
@@ -116,6 +116,22 @@ class SetNewPassword(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         return Response({'message': 'Password reset successfully'}, status=status.HTTP_200_OK)
 
+
+
+class ValidateTokenView(APIView):
+   
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+
+        # Return user details if token is valid
+        return Response({
+            "id": user.id,
+            "email": user.email,
+            "username": user.username,
+        }, status=200)
 
 
 class LogOutUser(GenericAPIView):

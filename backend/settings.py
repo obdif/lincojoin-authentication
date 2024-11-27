@@ -124,10 +124,14 @@ REST_FRAMEWORK = {
     ),
 }
 
+
+JWT_SECRET_KEY = env('JWT_SECRET_KEY')
+
 SIMPLE_JWT = {  # Change from SIMPLE_JWt to SIMPLE_JWT
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
      "AUTH_HEADER_TYPES": ("Bearer",),
+     'SIGNING_KEY': JWT_SECRET_KEY,
 }
 
 

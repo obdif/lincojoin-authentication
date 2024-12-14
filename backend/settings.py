@@ -15,7 +15,7 @@ import os
 import environ
 from datetime import timedelta
 import dj_database_url
-
+import cloudinary
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False)
@@ -24,8 +24,8 @@ env = environ.Env(
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 environ.Env.read_env(BASE_DIR / '.env')
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -139,24 +139,15 @@ SIMPLE_JWT = {  # Change from SIMPLE_JWt to SIMPLE_JWT
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://lincojoin_user:dzmiDOGwuWCjhP4OW5d5FQRuLw58vFW8@dpg-ct2784hopnds73fp7eb0-a.oregon-postgres.render.com/lincojoin')
+
 DATABASES = {
     'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lincojoin',
-        'USER': 'postgres',
-        'PASSWORD': 'obdif',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.parse(DATABASE_URL)
 }
-
-DATABASES["default"] = dj_database_url.parse(env('DATABASE_URL'))
-
-
 
 
 
@@ -250,3 +241,25 @@ SOCIALACCOUNT_PROVIDERS = {
 
 
 SOCIALACCOUNT_STORE_TOKENS = True
+
+
+# DEFAULT_FILE_STORAGE ='cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
+
+
+# CLOUDINARY_STORAGE={
+#     'CLOUD_NAME': 'dfgm1x36e',
+#     'API_KEY': '752956648759254',
+#     'API_SECRET': 'uR9hGbWWsF9nC739-Tt09cI79lM'
+# }
+
+
+
+# CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Redis as the broker
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'  # Store results in Redis
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_TIMEZONE = 'UTC'

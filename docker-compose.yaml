@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+      - DJANGO_SECRET_KEY=edd37305b66ed8411a01f45ba865c9d4b6e325a5a8f0ddf8936c1447b72971949da5a1f1029ebc5904cf0411730358fce6f7b044b0350cf0682445c76980160b5ba7787152fc583ba9d022fe69d0d055a3547d62b1cfc46c34c5102669310ec3b0ad403f6ab2b8b2100a787e9f2afb8bc549882bdf9dd5b9723cb9890e5757fa859856260328165482d125ff7bd7fe66e20afd94a0d3041cc2ba63d112851f896ea2062fb275bf553278d8ff82ac8c9ab3d10b3f40fb4fb7eaf79739a03d239d8dbe0898e78cf2d53aaf4367553be3f83af6cb33ab712cd342c48030c7a9f6ff3c0d783b767ae6fc276de277e8bf9c977efa77944020499f7dd2866fba669944
+      - DATABASE_URL=postgresql://lincojoin_user:dzmiDOGwuWCjhP4OW5d5FQRuLw58vFW8@dpg-ct2784hopnds73fp7eb0-a.oregon-postgres.render.com/lincojoin

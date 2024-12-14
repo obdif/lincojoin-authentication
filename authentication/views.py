@@ -3,7 +3,7 @@ from .models import *
 from .serializers import *
 from .utils import *
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, views, permissions
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.generics import GenericAPIView
@@ -14,8 +14,6 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.exceptions import AuthenticationFailed
-
-
 
 
 
@@ -144,3 +142,26 @@ class LogOutUser(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response (status=status.HTTP_204_NO_CONTENT)
+    
+    
+#     # =========== PROFILE SETUP======================
+    
+    
+# class ProfileView(views.APIView):
+#     permission_classes = [permissions.IsAuthenticated]
+
+#     def get(self, request):
+#         # Get the authenticated user's profile
+#         profile = request.user.profile
+
+#         # Ensure profile picture URL is accessible
+#         profile_picture_url = profile.profile_picture.url if profile.profile_picture else None
+        
+#         # Serialize the profile object
+#         serializer = ProfileSerializer(profile)
+
+#         # Add the profile picture URL to the serialized data
+#         response_data = serializer.data
+#         response_data['profile_picture_url'] = profile_picture_url
+
+#         return Response(response_data)

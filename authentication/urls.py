@@ -1,5 +1,8 @@
 from django.urls import path
 from .views import *
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 
 urlpatterns = [
@@ -12,5 +15,7 @@ urlpatterns = [
     path('set-new-password/', SetNewPassword.as_view(), name='set-new-password'),
     path('LogOutUser/', LogOutUser.as_view(), name='LogOutUser'),
     path('validate-token/', ValidateTokenView.as_view(), name='validate-token'),
+    # path('profile/', ProfileView.as_view(), name='profile'),
     
 ]
+
